@@ -70,6 +70,9 @@
                                     <frame key="frameInset" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="n4a-pT-RQ5" kind="show" identifier="showItem" id="hnm-mv-L9L"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -90,6 +93,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aLQ-fE-yva" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1912" y="165.51724137931035"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="UgT-qD-3c2">
+            <objects>
+                <viewController id="n4a-pT-RQ5" customClass="DetailViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jpD-nG-D1b"/>
+                        <viewControllerLayoutGuide type="bottom" id="IYO-vV-Wmo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2fP-Jm-jCN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V4T-nJ-ASh">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbN-ON-Kdy">
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="Z21-c1-8oi"/>
+                                </constraints>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="save:" destination="n4a-pT-RQ5" eventType="touchUpInside" id="4Eb-tV-gP9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="V4T-nJ-ASh" firstAttribute="centerX" secondItem="2fP-Jm-jCN" secondAttribute="centerX" id="Gle-3t-6QR"/>
+                            <constraint firstItem="V4T-nJ-ASh" firstAttribute="centerY" secondItem="2fP-Jm-jCN" secondAttribute="centerY" id="Qzx-4Q-cdv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="V4T-nJ-ASh" secondAttribute="trailing" constant="8" id="Uuo-PE-mjC"/>
+                            <constraint firstItem="V4T-nJ-ASh" firstAttribute="leading" secondItem="2fP-Jm-jCN" secondAttribute="leadingMargin" constant="8" id="ZWM-aZ-sc6"/>
+                            <constraint firstItem="SbN-ON-Kdy" firstAttribute="leading" secondItem="2fP-Jm-jCN" secondAttribute="leading" id="cDe-8Y-9tY"/>
+                            <constraint firstItem="IYO-vV-Wmo" firstAttribute="top" secondItem="SbN-ON-Kdy" secondAttribute="bottom" id="nw6-Vi-0j2"/>
+                            <constraint firstAttribute="trailing" secondItem="SbN-ON-Kdy" secondAttribute="trailing" id="oXT-vq-FZm"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="textField" destination="V4T-nJ-ASh" id="f44-Ak-ouw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6bu-Xy-Ky3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1912" y="813.19340329835086"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iDk-uQ-Oxg">

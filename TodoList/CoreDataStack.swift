@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
- class DataController: NSObject
+class DataController: NSObject
 {
     static let sharedInstance = DataController()
     

@@ -12,76 +12,42 @@ import CoreData
 class TodoListController: UITableViewController , NSFetchedResultsControllerDelegate
 {
 
-    let managedObjectContext = DataController.sharedInstance.managedObjectContext
-    
-    lazy var fetchRequest: NSFetchRequest<NSFetchRequestResult> =
+    lazy var dataSource: DataSource =
     {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Item.identifier)
-        let sortDescriptor = NSSortDescriptor(key: "text", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        return request
+        return DataSource(tableView: self.tableView)
     }()
     
-    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> =
-    {
-        let controller = NSFetchedResultsController<NSFetchRequestResult>(fetchRequest: self.fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        controller.delegate = self
-        return controller
-    }()
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        do
-        {
-            try self.fetchedResultsController.performFetch()
-        }
-        catch let error as NSError
-        {
-            print("Error fetching Item objects: \(error.localizedDescription), \(error.userInfo)")
-        }
-                // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.dataSource = dataSource
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return fetchedResultsController.sections?.count ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        guard let section = fetchedResultsController.sections?[section] else { return 0 }
-        return section.numberOfObjects
+        if segue.identifier == "showItem"
+        {
+            guard let destinationController = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
+            let item = dataSource.objectAtIndexPath(indexPath: indexPath as NSIndexPath) as! Item
+            destinationController.item = item
+        }
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+   
+     //MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        return configureCell(cell: cell, atIndexPath: indexPath as NSIndexPath)
+        return .delete
     }
     
-    private func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) ->  UITableViewCell
-    {
-        let item = fetchedResultsController.object(at: indexPath as IndexPath) as! Item
-        cell.textLabel?.text = item.text
-        return cell
-    }
     
-    //MARK: NSFetchedReusltControllerDelegate
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
-    {
-        tableView.reloadData()
-    }
+   
  
     
 }
